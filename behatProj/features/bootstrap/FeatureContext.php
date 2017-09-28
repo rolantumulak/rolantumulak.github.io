@@ -35,28 +35,26 @@ class FeatureContext extends MinkContext
      */
     public function iPress($ClientLogin)
     {
-		#echo "Current URL: ". $this->getSession()->getCurrentUrl() . "\n";
-        $session = $this->getSession();
-		$selectorsHandler = $session->getSelectorsHandler();
-		#$element = $session->getPage()->find('css', '#header .div .div .div .header-line-login .div .a .span');
-		$xpath = '//*[@id="header"]/div/div/div[3]/div/a/span';
-		#$element = $session->getPage()->find('named', array('link', $selectorsHandler->xpathLiteral('//*[@id="header"]/div/div/div[3]/div/a/span')));
-		$element = $session->getPage()->find(
-			'xpath',
-			$session->getSelectorsHandler()->selectorToXpath('xpath', '//*[@id="header"]/div/div/div[3]/div/a/span'));
-		echo "The link href is: ". $element->getAttribute('href') . "\n";
+		$page = $this->getSession()->getPage();
+		/*var_dump($page); */
+		$element = $page->find('named', array('link', $ClientLogin));
+		var_dump($element);
+		/*$element = $page->find('css',"#home_go_button");
+		$element->click(); 
+        /**$session = $this->getSession();
+		$element = $session->getPage()->findLink($ClientLogin);
         if (null === $element) {
             throw new \InvalidArgumentException(sprintf('Could not evaluate: "%s"', $element));
         } 
-        $element->click();
-    }
+        $element->click(); */
+    } 
 
     /**
      * @Then I should see :arg1
      */
     public function iShouldSee($arg1)
     {
-        throw new PendingException();
+		echo $arg1;
     }
 
     /**
