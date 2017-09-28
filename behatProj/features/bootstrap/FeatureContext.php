@@ -35,11 +35,18 @@ class FeatureContext extends MinkContext
      */
     public function iPress($ClientLogin)
     {
+		#echo "Current URL: ". $this->getSession()->getCurrentUrl() . "\n";
         $session = $this->getSession();
-		$element = $session->getPage()->find('named', array('link', $ClientLogin));
-		#$element = $session->getPage()->findLink($ClientLogin);
+		$selectorsHandler = $session->getSelectorsHandler();
+		#$element = $session->getPage()->find('css', '#header .div .div .div .header-line-login .div .a .span');
+		$xpath = '//*[@id="header"]/div/div/div[3]/div/a/span';
+		#$element = $session->getPage()->find('named', array('link', $selectorsHandler->xpathLiteral('//*[@id="header"]/div/div/div[3]/div/a/span')));
+		$element = $session->getPage()->find(
+			'xpath',
+			$session->getSelectorsHandler()->selectorToXpath('xpath', '//*[@id="header"]/div/div/div[3]/div/a/span'));
+		echo "The link href is: ". $element->getAttribute('href') . "\n";
         if (null === $element) {
-            throw new \InvalidArgumentException(sprintf('Could not evaluate: "%s"', $ClientLogin));
+            throw new \InvalidArgumentException(sprintf('Could not evaluate: "%s"', $element));
         } 
         $element->click();
     }
@@ -58,5 +65,6 @@ class FeatureContext extends MinkContext
     public function iAmOnThe($arg1)
     {
         $session = $this->getSession()->visit($arg1);
+		
     }
 }
