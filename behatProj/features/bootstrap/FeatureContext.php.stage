@@ -1,0 +1,75 @@
+<?php
+
+use Behat\Behat\Tester\Exception\PendingException;
+use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
+use Behat\MinkExtension\Context\MinkContext;
+
+/**
+ * Defines application features from the specific context.
+ */
+class FeatureContext extends MinkContext
+{
+    /**
+     * Initializes context.
+     *
+     * Every scenario gets its own context instance.
+     * You can also pass arbitrary arguments to the
+     * context constructor through behat.yml.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * @Given I wait :arg1 seconds
+     */
+    public function iWaitSeconds($arg1)
+    {
+        $session = $this->getSession()->wait($arg1);
+    }
+
+    /**
+     * @Given I press :arg1
+     */
+    /**public function iPress($ClientLogin)
+    {
+		$page = $this->getSession()->getPage();
+		/*var_dump($page); */
+		/*$element = $page->find('named', array('link', $ClientLogin));
+		$element = $page->find('css',"#home_go_button");
+		var_dump($element);
+		/*$element->click(); 
+        /**$session = $this->getSession();
+		$element = $session->getPage()->findLink($ClientLogin);
+        if (null === $element) {
+            throw new \InvalidArgumentException(sprintf('Could not evaluate: "%s"', $element));
+        } 
+        $element->click(); 
+    } */
+
+    /**
+     * @Then I should be in :arg1
+     */
+    public function iShouldBeIn($arg1)
+    {
+        echo $arg1;
+    }
+
+    /**
+     * @Given I click the :arg1 link
+     */
+    public function iClickTheLink($arg1)
+    {
+		$page = $this->getSession()->getPage();
+		$element = $page->find('xpath', "//*[@id='header']/div/div/div[3]/div/a/span")->getText(); 		
+        /*$findName = $this->getSession()->getPage()->findAll("css", $arg1);
+		$this->assertSession()->elementExists('css', '.selector');
+        if (!$findName) {
+            throw new Exception($arg1 . " could not be found");
+        } else {
+            $findName->click(); 
+        } */
+    }
+}
