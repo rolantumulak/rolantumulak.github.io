@@ -1,6 +1,0 @@
-default:
-    extensions:
-        Behat\MinkExtension:
-            goutte:    ~
-            selenium2: ~
-            base_url: https://stage.reviewbuzz.com/
